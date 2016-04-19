@@ -4,7 +4,7 @@
 	<groupId>CmadRestDemo</groupId>
 	<artifactId>restproj1</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>track1 Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
