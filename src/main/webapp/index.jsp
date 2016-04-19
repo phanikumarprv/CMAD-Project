@@ -27,7 +27,7 @@ $(document).ready(function(){
 		<tr><td>id</td><td>name</td><td>age</td></tr>
 	</table>
 </div>
-<table id="users">
+<table id="users" border=1>
 <tr><td>ID</td><td>Name</td><td>Age</td></tr>
 </table>
 </body>

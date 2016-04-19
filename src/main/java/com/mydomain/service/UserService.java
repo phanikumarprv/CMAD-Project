@@ -12,55 +12,35 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Restrictions;
 
+import com.mydomain.dao.UserServiceDAO;
 import com.mydomain.model.User;
 
 @Path("/user")
 public class UserService {
+	
+	private UserServiceDAO userServiceDAO = new UserServiceDAO();
 
 	@GET
 	@Path("/{param}")
 	@Produces({MediaType.APPLICATION_JSON})
 	public User getUser(@PathParam("param") Integer id) {
-		Session ses = HibernateUtil.currentSession();
-		try {
-			Criteria crit =  ses.createCriteria(User.class);
-			crit.add(Restrictions.idEq(id));
-			User u = (User)crit.uniqueResult();
-			return u;
-		} finally {
-			HibernateUtil.closeSession();
-		}
+		return userServiceDAO.getUser(id);
 	}
 	
 	@GET
 	@Produces({MediaType.APPLICATION_JSON})
 	public List<User> getUsers() {
-		Session ses = HibernateUtil.currentSession();
-		try {
-			return ses.createCriteria(User.class).list();
-		} finally {
-			HibernateUtil.closeSession();
-		}
+		return userServiceDAO.getUsers();
 	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	//public void createUser(@FormParam("name") String name,@FormParam("age") Integer age,@FormParam("emailId") String emailId){
 	public void createUser(User u){
-		System.out.println("Creating user: "+u.getName()+" Age: "+u.getAge());
-		Session ses = HibernateUtil.currentSession();
-		try {
-			Transaction tx = ses.beginTransaction();
-			ses.save(u);
-			tx.commit();
-		}finally{
-			HibernateUtil.closeSession();
-		}
+		userServiceDAO.createUser(u);
 	}
 	
 	@PUT
@@ -94,6 +74,11 @@ public class UserService {
 		} finally {
 			HibernateUtil.closeSession();
 		}
+	}
+
+	public void setUserServiceDao(UserServiceDAO userServiceDAO) {
+		this.userServiceDAO = userServiceDAO;
+		
 	}
 	
 }
