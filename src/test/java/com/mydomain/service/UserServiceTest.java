@@ -25,7 +25,7 @@ public class UserServiceTest {
 		
 	}
 	
-	@Test//(expected=IllegalArgumentException.class)
+	@Test(expected=IllegalArgumentException.class)
 	public void testGetUserUsingNullAsId() {
 		UserServiceDAO mockUserServiceDAO = mock(UserServiceDAO.class);
 		when(mockUserServiceDAO.getUser(null)).thenThrow(new IllegalArgumentException("User Id cannot be Null"));
